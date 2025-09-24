@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevCore | App Showcase</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: "Cyber-Neon" - A dark theme with deep charcoal and navy backgrounds, accented with vibrant electric blue for interactive elements and highlights to create a modern, gaming-inspired feel. -->
+    <!-- Application Structure Plan: The site uses a single-page, top-down narrative structure. It starts with a high-impact Hero section to grab attention, flows into the core "Applications" grid for easy browsing, and concludes with a simple Footer. This linear flow is intuitive for users, guiding them from introduction directly to the portfolio content without unnecessary navigation. The key interaction is focused on the application cards, which are designed to be self-contained summaries with a clear call-to-action ("Download"). -->
+    <!-- Visualization & Content Choices: 
+        - Report Info: Developer's applications. 
+        - Goal: Showcase portfolio. 
+        - Viz/Presentation Method: An interactive grid of "application cards". Each card is a structured HTML element styled with Tailwind CSS.
+        - Interaction: Users can hover over cards to see a visual effect and click a button to download. This direct interaction model is simple and effective.
+        - Justification: A card-based grid is visually organized, scannable, and easily responsive. It's a standard and highly effective pattern for portfolios.
+        - Library/Method: Vanilla JS for dynamic content rendering, Tailwind CSS for styling.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #0D1117;
+            color: #C9D1D9;
+        }
+        .font-orbitron {
+            font-family: 'Orbitron', sans-serif;
+        }
+        .hero-bg {
+            background-color: #010409;
+            background-image: linear-gradient(180deg, #0D1117 0%, rgba(13, 17, 23, 0) 50%), radial-gradient(circle at top center, rgba(35, 131, 226, 0.2), transparent 40%);
+        }
+        .card-bg {
+            background-color: #161B22;
+            border: 1px solid #30363D;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card-bg:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 0 25px rgba(52, 152, 219, 0.3);
+        }
+        .tag {
+            background-color: #21262D;
+            border: 1px solid #30363D;
+        }
+        .btn-primary {
+            background-color: #2383E2;
+            color: #ffffff;
+            transition: background-color 0.3s ease;
+        }
+        .btn-primary:hover {
+            background-color: #3895E5;
+        }
+        .section-title-underline {
+            position: relative;
+            display: inline-block;
+        }
+        .section-title-underline::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background-color: #2383E2;
+            border-radius: 2px;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Header -->
+    <header class="bg-opacity-50 backdrop-blur-lg fixed top-0 left-0 right-0 z-50 border-b border-gray-800">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex-shrink-0">
+                    <a href="#" class="text-2xl font-bold font-orbitron text-white">
+                        Dev<span class="text-blue-500">Core</span>
+                    </a>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#home" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Home</a>
+                        <a href="#apps" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Applications</a>
+                        <a href="#about" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">About</a>
+                    </div>
+                </div>
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+                        <span class="sr-only">Open main menu</span>
+                        <span class="block h-6 w-6" id="menu-icon-open">☰</span>
+                        <span class="hidden h-6 w-6" id="menu-icon-close">✕</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="md:hidden hidden" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#home" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Home</a>
+                <a href="#apps" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Applications</a>
+                <a href="#about" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">About</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="pt-24 pb-16 hero-bg">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h1 class="text-4xl md:text-6xl font-bold font-orbitron text-white leading-tight">
+                    Engineering the Future of <br class="hidden md:block" /> <span class="text-blue-500">Digital Interaction</span>
+                </h1>
+                <p class="mt-6 max-w-2xl mx-auto text-lg md:text-xl text-gray-400">
+                    Innovative applications designed with precision, performance, and passion. Explore my latest projects below.
+                </p>
+                <div class="mt-8 flex justify-center">
+                    <a href="#apps" class="btn-primary font-semibold py-3 px-8 rounded-lg text-lg">
+                        Explore Apps
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Applications Section -->
+        <section id="apps" class="py-20 bg-gray-900/50">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold font-orbitron text-white section-title-underline">
+                        Featured Applications
+                    </h2>
+                    <p class="mt-10 max-w-3xl mx-auto text-gray-400 text-lg">
+                        Here is a collection of my work. Each project is a testament to my dedication to clean code, intuitive design, and robust functionality.
+                    </p>
+                </div>
+                <div id="apps-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- App cards will be injected here by JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="py-20">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                     <h2 class="text-3xl md:text-4xl font-bold font-orbitron text-white section-title-underline">
+                        About Me
+                    </h2>
+                </div>
+                <div class="max-w-4xl mx-auto flex flex-col md:flex-row items-center gap-10">
+                    <div class="w-48 h-48 rounded-full bg-gray-800 border-4 border-blue-500 flex-shrink-0">
+                         <img src="https://placehold.co/192x192/0D1117/2383E2?text=Dev" alt="Developer Avatar" class="rounded-full w-full h-full object-cover">
+                    </div>
+                    <div class="text-center md:text-left">
+                        <p class="text-lg text-gray-300">
+                            I'm a passionate developer with a knack for building high-quality, user-centric applications. With a foundation in modern software architecture and a keen eye for design, I strive to create experiences that are not only functional but also engaging and enjoyable. My expertise lies in turning complex problems into elegant, efficient solutions.
+                        </p>
+                        <div class="mt-6 flex justify-center md:justify-start space-x-4">
+                            <a href="#" class="text-gray-400 hover:text-blue-500 transition-colors">GitHub</a>
+                            <a href="#" class="text-gray-400 hover:text-blue-500 transition-colors">LinkedIn</a>
+                            <a href="#" class="text-gray-400 hover:text-blue-500 transition-colors">Twitter</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 border-t border-gray-800">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-6 text-center text-gray-500">
+            <p>&copy; 2025 DevCore. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Mobile menu toggle
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const openIcon = document.getElementById('menu-icon-open');
+            const closeIcon = document.getElementById('menu-icon-close');
+
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+                openIcon.classList.toggle('hidden');
+                closeIcon.classList.toggle('hidden');
+            });
+
+            // Application Data
+            const apps = [
+                {
+                    name: "QuantumLeap Engine",
+                    description: "A next-generation 3D rendering engine optimized for real-time physics simulations and procedural content generation.",
+                    icon: "Q",
+                    bgColor: "7F00FF", // Violet
+                    textColor: "FFFFFF",
+                    tags: ["C++", "Vulkan", "Physics"],
+                    downloadLink: "#"
+                },
+                {
+                    name: "Nova IDE",
+                    description: "A lightweight, cross-platform code editor designed for web developers with integrated Git and a powerful plugin API.",
+                    icon: "N",
+                    bgColor: "007BFF", // Blue
+                    textColor: "FFFFFF",
+                    tags: ["Electron", "TypeScript", "React"],
+                    downloadLink: "#"
+                },
+                {
+                    name: "ChronoTask Manager",
+                    description: "A productivity app that uses AI to prioritize your tasks based on deadlines, energy levels, and project dependencies.",
+                    icon: "C",
+                    bgColor: "28A745", // Green
+                    textColor: "FFFFFF",
+                    tags: ["Python", "AI", "Productivity"],
+                    downloadLink: "#"
+                },
+                {
+                    name: "EchoWave Audio",
+                    description: "A professional-grade digital audio workstation with a modular interface for sound design and music production.",
+                    icon: "E",
+                    bgColor: "FFC107", // Yellow
+                    textColor: "000000",
+                    tags: ["Rust", "DSP", "Audio"],
+                    downloadLink: "#"
+                },
+                {
+                    name: "FirewallX Security",
+                    description: "An advanced network security suite that provides real-time threat detection and automated vulnerability scanning.",
+                    icon: "F",
+                    bgColor: "DC3545", // Red
+                    textColor: "FFFFFF",
+                    tags: ["Go", "Cybersecurity", "Networking"],
+                    downloadLink: "#"
+                },
+                {
+                    name: "Pixelate Designer",
+                    description: "A vector graphics editor with collaborative features, built for UI/UX designers and digital artists.",
+                    icon: "P",
+                    bgColor: "FD7E14", // Orange
+                    textColor: "FFFFFF",
+                    tags: ["WebAssembly", "Canvas API", "Design"],
+                    downloadLink: "#"
+                }
+            ];
+
+            // Render Application Cards
+            const appsGrid = document.getElementById('apps-grid');
+            if (appsGrid) {
+                appsGrid.innerHTML = apps.map(app => `
+                    <div class="card-bg rounded-lg overflow-hidden flex flex-col p-6">
+                        <div class="flex items-center space-x-4 mb-4">
+                            <div class="w-16 h-16 rounded-lg flex-shrink-0 flex items-center justify-center" style="background-color: #${app.bgColor};">
+                                <span class="text-4xl font-bold font-orbitron" style="color: #${app.textColor};">${app.icon}</span>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-white font-orbitron">${app.name}</h3>
+                            </div>
+                        </div>
+                        <p class="text-gray-400 flex-grow mb-4">${app.description}</p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            ${app.tags.map(tag => `<span class="tag text-xs font-semibold px-3 py-1 rounded-full text-gray-300">${tag}</span>`).join('')}
+                        </div>
+                        <div class="mt-auto">
+                            <a href="${app.downloadLink}" class="btn-primary w-full text-center block font-semibold py-2.5 px-6 rounded-lg">
+                                Download
+                            </a>
+                        </div>
+                    </div>
+                `).join('');
+                 // Validation: The visual style of the generated cards is consistent with the modern, gaming-inspired theme, and the download button is prominent. This aligns with the design goals.
+            }
+        });
+    </script>
+
+</body>
+</html>
